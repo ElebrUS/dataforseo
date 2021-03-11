@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if user.is_authenticated %}
+        <a href="/orders/new">Create Order</a>
+        <br>
+        <h1>My Orders</h1>
+        {% for order in orders %}
+            {% if order.status %}
+                <a href="/orders/{{ order.id }}" class="btn white orders">{{ order.keyword }} | {{ order.engine }} ✔</a>
+            {% else %}
+                <a href="/orders/{{ order.id }}" class="btn white orders">{{ order.keyword }} | {{ order.engine }} ✖</a>
+            {% endif %}
+
+        {% endfor %}
+
+    {% endif %}
+{% endblock %}
