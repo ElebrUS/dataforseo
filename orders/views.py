@@ -16,7 +16,7 @@ def new_order(request):
         form = CreateOrder(request.POST)
         if form.is_valid():
             post = form.save(commit=False)
-            client = RestClient(settings.API_LOGIN, API_PASS)
+            client = RestClient(settings.API_LOGIN, settings.API_PASS)
             post_data = dict()
             post.lang = 'en'
             post_data[len(post_data)] = dict(
@@ -58,7 +58,7 @@ def order(request, order_id):
 def post_back(request, order_id):
     orders = Order.objects.get(id_api=order_id)
     if orders.status is False:
-        client = RestClient(settings.API_LOGIN, API_PASS)
+        client = RestClient(settings.API_LOGIN, settings.API_PASS)
         response = client.get(f"/v3/serp/{orders.engine.name}/organic/task_get/regular/{order_id}")
         if response['status_code'] == 20000:
             res = response['tasks'][0]['result'][0]['items']
@@ -66,6 +66,8 @@ def post_back(request, order_id):
                 data = DataOrder()
                 setattr(data, 'order', orders)
                 for k, v in obj.items():
+                    if v == 'null':
+                        v = None
                     setattr(data, k, v)
                 data.save()
             orders.status = True
