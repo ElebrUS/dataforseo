@@ -30,14 +30,14 @@ class Order(models.Model):
 
 class DataOrder(models.Model):
     order = models.ForeignKey(Order, verbose_name='Order of element', on_delete=models.CASCADE)
-    type = models.CharField(verbose_name='Type of element', max_length=256)
+    type = models.CharField(verbose_name='Type of element', max_length=256, null=True, blank=True)
     rank_group = models.IntegerField(verbose_name='group rank in SERP')
     rank_absolute = models.IntegerField(verbose_name='absolute rank in SERP')
-    domain = models.CharField(verbose_name='domain in SERP', max_length=256)
-    title = models.CharField(verbose_name='title of the results element in SERP', max_length=256)
-    description = models.TextField(verbose_name='description of the results element in SERP')
-    url = models.CharField(verbose_name='relevant URL in SERP', max_length=256)
-    breadcrumb = models.CharField(verbose_name='breadcrumb in SERP', max_length=256)
+    domain = models.CharField(verbose_name='domain in SERP', max_length=256, null=True, blank=True)
+    title = models.CharField(verbose_name='title of the results element in SERP', max_length=256, null=True, blank=True)
+    description = models.TextField(verbose_name='description of the results element in SERP', null=True, blank=True)
+    url = models.CharField(verbose_name='relevant URL in SERP', max_length=256, null=True, blank=True)
+    breadcrumb = models.CharField(verbose_name='breadcrumb in SERP', max_length=256, null=True, blank=True)
 
     def __str__(self):
         return '{} > {}'.format(self.order, self.title)
