@@ -36,7 +36,7 @@ class DataOrder(models.Model):
     domain = models.CharField(verbose_name='domain in SERP', max_length=256, null=True, blank=True)
     title = models.CharField(verbose_name='title of the results element in SERP', max_length=256, null=True, blank=True)
     description = models.TextField(verbose_name='description of the results element in SERP', null=True, blank=True)
-    url = models.CharField(verbose_name='relevant URL in SERP', max_length=256, null=True, blank=True)
+    url = models.TextField(verbose_name='relevant URL in SERP', null=True, blank=True)
     breadcrumb = models.CharField(verbose_name='breadcrumb in SERP', max_length=256, null=True, blank=True)
 
     def __str__(self):
